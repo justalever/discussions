@@ -13,3 +13,28 @@
  *= require_tree .
  *= require_self
  */
+
+@import "bulma";
+@import "functions";
+
+.image {
+  border-radius: 50%;
+  img {
+    border-radius: 50%;
+  }
+}
+
+.notification:not(:last-child) {
+  margin-bottom: 0;
+}
+
+.textarea {
+  height: 250px;
+  font-family: Monaca, san-serif;
+  font-size: .9rem;
+  padding: 1rem;
+}
+
+.discussion-title {
+  margin-bottom: 0;
+}
