@@ -39,7 +39,7 @@
           <% if user_signed_in? %>
           <div class="navbar-item">
             <div class="field is-grouped">
-              <%= link_to 'New Discussion', '#', class:"button is-info" %>
+              <%= link_to 'New Discussion', new_discussion_path, class:"button is-info" %>
             </div>
           </div>
           <div class="navbar-item has-dropdown is-hoverable">
@@ -54,7 +54,7 @@
           <div class="field is-grouped">
 
             <p class="control">
-              <%= link_to 'New Discussion', '#', class:"button is-info" %>
+              <%= link_to 'New Discussion', new_discussion_path, class:"button is-info" %>
             </p>
 
             <p class="control">

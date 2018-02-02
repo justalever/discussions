@@ -1,0 +1,35 @@
+<div class="box">
+  <article class="media">
+    <div class="media-left">
+      <figure class="image is-48x48">
+        <%= gravatar_image_tag(reply.user.email, class: 'border-radius-50', size: 48, alt: reply.user.username) %>
+      </figure>
+    </div>
+    <div class="media-content">
+      <div class="content">
+        <p>
+          <strong><%= reply.user.username %></strong> <small><%= time_ago_in_words(reply.created_at) %></small>
+          <br/>
+          <%= markdown(reply.reply) %>
+        </p>
+      </div>
+      <% if reply_author(reply) || has_role?(:admin) %>
+      <nav class="level is-mobile">
+        <div class="level-left">
+          <a class="level-item">
+            <%= link_to edit_discussion_reply_path(reply.discussion, reply) do %>
+            <span class="icon is-small"><i class="fa fa-pencil"></i></span>
+            <% end %>
+          </a>
+          <a class="level-item">
+            <%= link_to [reply.discussion, reply],
+                method: :delete, data: {confirm: "Are you sure ?" } do %>
+            <span class="icon is-small"><i class="fa fa-trash-o"></i></span>
+            <% end %>
+          </a>
+        </div>
+      </nav>
+      <% end %>
+    </div>
+  </article>
+</div>

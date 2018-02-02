@@ -1,0 +1,36 @@
+<div class="column is-8">
+  <h3 class="title is-5 has-text-grey-light">Latest Discussions</h3>
+  <div class="discussions">
+    <% @discussions.each do |discussion| %>
+      <div class="columns bb-not-last pv10">
+        <div class="column is-1">
+          <%= gravatar_image_tag(discussion.user.email, class:'border-radius-50', size: 48, alt: discussion.user.username) %>
+        </div>
+        <div class="column is-8">
+          <%= link_to discussion do %>
+            <h3 class="title is-5"><%= discussion.title %></h3>
+          <% end %>
+          <div class="content">
+            <%= truncate(strip_markdown(discussion.content), length: 140) %>
+            <p><em><small>Posted <%= time_ago_in_words(discussion.created_at) %> ago in
+              <% if discussion.channel %>
+                <%= link_to discussion.channel.channel, discussion.channel %>
+              <% end %>
+              by <%= discussion.user.username %>
+              </small>
+              </em>
+            </p>
+          </div>
+        </div>
+
+        <% if discussion_author(discussion) || has_role?(:admin) %>
+        <div class="column has-text-right">
+          <%= link_to 'Edit', edit_discussion_path(discussion), class:'button' %>
+          <%= link_to 'Delete', discussion, method: :delete, data: { confirm: 'Are you sure?' }, class: "button" %>
+        </div>
+        <% end %>
+
+      </div>
+    <% end %>
+  </div>
+</div>

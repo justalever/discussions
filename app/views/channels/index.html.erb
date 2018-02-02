@@ -1,27 +1,37 @@
-<p id="notice"><%= notice %></p>
+<h1 class="title is-2">Channels</h1>
 
-<h1>Channels</h1>
+<% if has_role?(:admin) %>
+<div class="level">
+  <div class="level-left"></div>
+  <div class="level-right">
+    <%= link_to 'New Channel', new_channel_path, class:'button is-dark' %>
+  </div>
+</div>
 
-<table>
+<table class="table is-fullwidth">
   <thead>
     <tr>
       <th>Channel</th>
       <th colspan="3"></th>
     </tr>
   </thead>
-
   <tbody>
     <% @channels.each do |channel| %>
-      <tr>
-        <td><%= channel.channel %></td>
-        <td><%= link_to 'Show', channel %></td>
-        <td><%= link_to 'Edit', edit_channel_path(channel) %></td>
-        <td><%= link_to 'Destroy', channel, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
+    <tr>
+      <td><%= link_to channel.channel, channel %></td>
+      <td>
+        <div class="buttons is-right">
+          <%= link_to 'View Channel', channel, class:'button' %>
+          <%= link_to 'Edit Channel', edit_channel_path(channel), class:'button' %>
+          <%= link_to 'Delete', channel, class:'button is-danger', method: :delete, data: { confirm: "Are you sure you want to delete this channel? " } %>
+        </div>
+      </td>
+    </tr>
     <% end %>
   </tbody>
+
 </table>
 
-<br>
-
-<%= link_to 'New Channel', new_channel_path %>
+<% else %>
+ <p class="has-text-center">Sorry! You don't have access this page.</p>
+<% end %>

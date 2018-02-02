@@ -1,14 +1,38 @@
-<p id="notice"><%= notice %></p>
+<div class="columns">
+  <div class="column is-8">
+    <h1 class="title is-2 has-text-grey discussion-title"><%= @discussion.title %></h1>
+    <h3 class="subtitle is-5 has-text-grey-lighter">by <%= @discussion.user.username %> in <%= link_to @discussion.channel.channel, @discussion.channel %></h3>
+    <div class="level">
+      <div class="level-left"></div>
+      <div class="level-right">
+        <% if discussion_author(@discussion) %>
+        <div class="buttons">
+            <%= link_to 'Edit Discussion', edit_discussion_path(@discussion), class:'button'%>
+            <%= link_to 'Delete', discussion_path(@discussion), method: :delete, data: { confirm: "Delete discussion?" }, class:'button' %>
+        </div>
+        <% end %>
+      </div>
+    </div>
+    <div class="content"><%= markdown(@discussion.content) %></div>
 
-<p>
-  <strong>Title:</strong>
-  <%= @discussion.title %>
-</p>
+    <h2 class="subtitle is-5 has-text-grey"><%= @discussion.replies.count %> Replies</h2>
 
-<p>
-  <strong>Content:</strong>
-  <%= @discussion.content %>
-</p>
+    <div id="discussion-replies">
+      <%= render @discussion.replies %>
+    </div>
 
-<%= link_to 'Edit', edit_discussion_path(@discussion) %> |
-<%= link_to 'Back', discussions_path %>
+    <hr />
+
+    <h3 class="subtitle is-3 has-text-grey">Leave a reply</h3>
+    <% if user_signed_in? %>
+      <%= render 'replies/form' %>
+    <% else %>
+    <p>To reply you need to <%= link_to 'login', new_user_session_path %>. Don't have an account?
+      <%= link_to 'Sign up', new_user_registration_path %> for one.</p>
+    <% end %>
+
+  </div>
+
+  <%= render 'sidebar' %>
+
+</div>
